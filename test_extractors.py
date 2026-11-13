@@ -31,6 +31,9 @@ assert extract_emails("Contact support@company.co.uk.") == [
 assert extract_emails("Invalid email: user@example..com") == [], (
     "Should reject consecutive dots in the email domain"
 )
+assert extract_emails("Invalid email: user..name@example.com") == [], (
+    "Should reject consecutive dots before @"
+)
 
 print("PASS: emails")
 

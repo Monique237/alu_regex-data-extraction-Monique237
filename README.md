@@ -2,86 +2,61 @@
 
 ## Project Overview
 
-This project demonstrates the use of Python Regular Expressions (Regex) to extract specific types of information from large blocks of text. The program scans text and identifies common data patterns such as email addresses, URLs, phone numbers, credit card numbers, hashtags, and currency amounts.
+This Python project uses regular expressions to extract six types of data from blocks of text. It uses Python 3 and the built-in `re` module.
 
-## Implemented Data Extractors
+## Supported Formats
 
-The following extractors have been implemented:
-
-- Email Addresses
-- URLs
-- Phone Numbers
-- Hashtags
-- Credit Card Numbers
-- Currency Amounts
-
-## Technologies Used
-
-- Python 3
-- Python Regular Expressions (`re` module)
-- Git
-- GitHub
-- Visual Studio Code
+| Extractor | Sample matches |
+|---|---|
+| Email addresses | `user@example.com`, `support@company.co.uk` |
+| URLs | `https://www.example.com`, `https://subdomain.example.org/page` |
+| Phone numbers | `123-456-7890`, `123.456.7890`, `(123) 456-7890` |
+| Hashtags | `#example`, `#ThisIsAHashtag` |
+| Credit card numbers | `1234 5678 9012 3456`, `1234-5678-9012-3456` |
+| Currency amounts | `$19.99`, `$1,234.56` |
 
 ## Project Structure
 
 ```text
 alu_regex-data-extraction-Monique237/
-│
-├── main.py
+├── main.py             # Extractor functions and sample demo
+├── test_extractors.py  # Tests for all six extractors
 ├── README.md
 └── .gitignore
 ```
 
-## How to Run
+## Run the Demo
 
-1. Clone the repository.
-2. Open the project folder in Visual Studio Code.
-3. Run the following command:
+If you already have the repository on your computer, open the project folder and run `python main.py`. For a fresh setup, run:
 
 ```bash
+git clone https://github.com/Monique237/alu_regex-data-extraction-Monique237.git
+cd alu_regex-data-extraction-Monique237
 python main.py
 ```
 
-## Sample Data Supported
+The demo prints six labeled lists of matches from the sample text in `main.py`.
 
-### Emails
+## Run the Tests
 
-- user@example.com
-- support@company.co.uk
+From the project folder, run:
 
-### URLs
+```bash
+python test_extractors.py
+```
 
-- https://www.company.co.uk
+The tests compare the returned matches with the expected results. They cover the supported formats and the following edge cases.
 
-### Phone Numbers
+| Extractor | Edge case | Expected behavior |
+|---|---|---|
+| Email addresses | `user@example..com` | Reject consecutive dots in the domain. |
+| URLs | `https://example.org/page.` | Remove the sentence-ending period. A separate test checks that a query string is preserved. |
+| Phone numbers | `9123-456-78900` | Reject a phone number with extra digits. |
+| Hashtags | A standalone `#` | Return no match. |
+| Credit card numbers | `1234 5678-9012 3456` | Reject a number with mixed separators. |
+| Currency amounts | `$19.999` | Reject an amount with three decimal digits. |
 
-- 123-456-7890
-- 123.456.7890
-- (123) 456-7890
-
-### Hashtags
-
-- #Python
-- #Regex
-
-### Credit Cards
-
-- 1234 5678 9012 3456
-- 1234-5678-9012-3456
-
-### Currency Amounts
-
-- $19.99
-- $1,250.00
-- $12,500.03
-
-## Features
-
-- Pattern matching using Regex
-- Multiple format support
-- Data extraction from text
-- Edge-case handling
+A successful test run ends with `PASS: hashtags`.
 
 ## Author
 

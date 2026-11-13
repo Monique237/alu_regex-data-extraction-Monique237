@@ -2,8 +2,12 @@ import re
 
 #Extracting emails
 def extract_emails(text):
-    pattern = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}"
-    return re.findall(pattern, text) 
+    pattern = (
+        r"(?<![a-zA-Z0-9._%+-])"
+        r"[a-zA-Z0-9_%+-]+(?:\.[a-zA-Z0-9_%+-]+)*"
+        r"@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}"
+    )
+    return re.findall(pattern, text)
 
 #Extracting urls
 def extract_urls(text):
@@ -31,48 +35,51 @@ def extract_currency(text):
     pattern = r"\$\d{1,3}(?:,\d{3})*\.\d{2}(?!\d)"
     return re.findall(pattern, text)
 
-sample_text = """
-Contact us at user@example.com
-or support@company.co.uk
+if __name__ == "__main__":
+    
+    sample_text = """
+    Contact us at user@example.com
+    or support@company.co.uk
 
-Visit:
-https://www.example.com
-https://subdomain.example.org/page
+    Visit:
+    https://www.example.com
+    https://subdomain.example.org/page
 
-Call us:
-123-456-7890
-123.456.7890
-(123) 456-7890
+    Call us:
+    123-456-7890
+    123.456.7890
+    (123) 456-7890
 
-Hashtags:
-#example
-#ThisIsAHashtag
+    Hashtags:
+    #example
+    #ThisIsAHashtag 
+    
 
-Credit card numbers:
-1234 5678 9012 3456
-1234-5678-9012-3456
+    Credit card numbers:
+    1234 5678 9012 3456
+    1234-5678-9012-3456
 
-Prices:
-$19.99
-$1,234.56
-"""
+    Prices:
+    $19.99
+    $1,234.56
+    """
 
-emails = extract_emails(sample_text)
-urls= extract_urls(sample_text)
-phones = extract_phone_numbers(sample_text)
-hashtags = extract_hashtags(sample_text)
-cards = extract_credit_cards(sample_text)
-currencies = extract_currency(sample_text)
+    emails = extract_emails(sample_text)
+    urls= extract_urls(sample_text)
+    phones = extract_phone_numbers(sample_text)
+    hashtags = extract_hashtags(sample_text)
+    cards = extract_credit_cards(sample_text)
+    currencies = extract_currency(sample_text)
 
-print("\n=== EMAILS ===")
-print(emails)
-print("\n=== URLS ===")
-print (urls)
-print("\n=== PHONE NUMBERS ===")
-print(phones)
-print("\n=== HASHTAGS ===")
-print(hashtags)
-print("\n=== CREDIT CARDS ===")
-print(cards)
-print("\n=== CURRENCY AMOUNTS ===")
-print(currencies)
+    print("\n=== EMAILS ===")
+    print(emails)
+    print("\n=== URLS ===")
+    print (urls)
+    print("\n=== PHONE NUMBERS ===")
+    print(phones)
+    print("\n=== HASHTAGS ===")
+    print(hashtags)
+    print("\n=== CREDIT CARDS ===")
+    print(cards)
+    print("\n=== CURRENCY AMOUNTS ===")
+    print(currencies)
